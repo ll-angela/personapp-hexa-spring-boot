@@ -28,7 +28,10 @@ public class TelefonoMapperRest {
     }
 
     public Phone fromAdapterToDomain (TelefonoRequest request, Person owner) {
-        // TODO Auto-generated method stub
-        return new Phone();
+        Phone phone =  new Phone();
+        phone.setNumber(request.getNumber());
+        phone.setCompany(request.getOper());
+        phone.setOwner(owner);
+        return phone;
     }
 }

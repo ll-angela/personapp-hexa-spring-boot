@@ -7,6 +7,9 @@ import co.edu.javeriana.as.personapp.domain.Study;
 import co.edu.javeriana.as.personapp.model.request.EstudiosRequest;
 import co.edu.javeriana.as.personapp.model.response.EstudiosResponse;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Mapper
 public class EstudiosMapperRest {
 
@@ -30,8 +33,13 @@ public class EstudiosMapperRest {
     }
 
     public Study fromAdapterToDomain (EstudiosRequest request, Person person, Profession profession) {
-        // TODO Auto-generated method stub
-        return new Study();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        Study study = new Study();
+        study.setUniversityName(request.getUniversity());
+        study.setGraduationDate(LocalDate.parse(request.getDate(), formatter));
+        study.setProfession(profession);
+        study.setPerson(person);
+        return study;
     }
 
 }

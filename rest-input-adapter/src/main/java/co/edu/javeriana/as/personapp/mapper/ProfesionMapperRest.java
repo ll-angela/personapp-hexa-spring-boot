@@ -27,7 +27,11 @@ public class ProfesionMapperRest {
     }
 
     public Profession fromAdapterToDomain (ProfesionRequest request) {
-        // TODO Auto-generated method stub
-        return new Profession();
+        Profession profession = new Profession();
+        profession.setIdentification(Integer.parseInt(request.getId()));
+        profession.setName(request.getName());
+        profession.setDescription(request.getDescription());
+
+        return profession;
     }
 }
