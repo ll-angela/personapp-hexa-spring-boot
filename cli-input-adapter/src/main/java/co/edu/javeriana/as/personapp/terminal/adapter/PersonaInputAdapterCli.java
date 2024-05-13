@@ -3,6 +3,7 @@ package co.edu.javeriana.as.personapp.terminal.adapter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import co.edu.javeriana.as.personapp.domain.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -54,6 +55,43 @@ public class PersonaInputAdapterCli {
 	    personInputPort.findAll().stream()
 	        .map(personaMapperCli::fromDomainToAdapterCli)
 	        .forEach(System.out::println);
+	}
+
+	public void crearPersona(PersonaModelCli personaModelCli) {
+		try {
+			Person person = personInputPort.create(personaMapperCli.fromAdapterToDomain(personaModelCli));
+			System.out.println("Persona creada exitosamente!");
+			System.out.println(person);
+		} catch (Exception e) {
+			System.out.println("La persona no se ha podido crear.");
+		}
+	}
+
+	public void obtenerPersona(Integer id) {
+		try {
+			System.out.println(personInputPort.findOne(id));
+		} catch (Exception e) {
+			System.out.println("La persona con id " + id + " no existe en el sistema.");
+		}
+	}
+
+	public void editarPersona(PersonaModelCli personaModelCli) {
+		try {
+			Person person = personInputPort.edit(personaModelCli.getCc(), personaMapperCli.fromAdapterToDomain(personaModelCli));
+			System.out.println("Persona editada exitosamente!");
+			System.out.println(person);
+		} catch (Exception e) {
+			System.out.println("La persona no se ha podido editar.");
+		}
+	}
+
+	public void eliminarPersona(Integer id) {
+		try {
+			personInputPort.drop(id);
+			System.out.println("Persona con el id " + id + " ha sido eliminada.");
+		} catch (Exception e) {
+			System.out.println("La persona no se ha podido eliminar.");
+		}
 	}
 
 }
