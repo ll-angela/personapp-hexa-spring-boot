@@ -12,9 +12,9 @@ services:
     image: mariadb
     environment:
       MARIADB_ROOT_PASSWORD: brayan-catalina-karol
-      MARIADB_USER: lab2-user
-      MARIADB_PASSWORD: brayan-catalina-karol
-      MARIADB_DATABASE: lab-2
+      MARIADB_USER: persona_db
+      MARIADB_PASSWORD: persona_db
+      MARIADB_DATABASE: persona_db
     restart: always
     ports:
       - "3307:3306"
@@ -26,7 +26,6 @@ services:
   mongo-database:
     image: mongo:latest
     container_name: mongo-lab2
-    restart: always
     ports:
       - "27017:27017"
     volumes:
