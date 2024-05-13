@@ -1,0 +1,36 @@
+version: '3.9'
+
+networks:
+  lab-2:
+    name: lab-2
+    driver: bridge
+
+services:
+  maria-database:
+    build: ./scripts/maria
+    container_name: maria-lab2
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: brayan-catalina-karol
+      MARIADB_USER: lab2-user
+      MARIADB_PASSWORD: brayan-catalina-karol
+      MARIADB_DATABASE: lab-2
+    restart: always
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./database/maria:/var/lib/mysql:rw
+    networks:
+      - lab-2
+
+  mongo-database:
+    image: mongo:latest
+    container_name: mongo-lab2
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database/mongo:/data/db:rw
+      - ./scripts/mongo/mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - lab-2
