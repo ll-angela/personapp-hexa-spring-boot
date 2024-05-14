@@ -24,12 +24,16 @@ services:
       - lab-2
 
   mongo-database:
-    image: mongo:latest
+    image: mongo:7
     container_name: mongo-lab2
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
     ports:
       - "27017:27017"
     volumes:
       - ./database/mongo:/data/db:rw
-      - ./scripts/mongo/mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./scripts/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - lab-2
